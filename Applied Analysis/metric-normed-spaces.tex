@@ -1,0 +1,177 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath, amssymb, mathtools, slashed}
+
+% Commonly used sets of numbers
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+
+% Shortcuts for inner product spaces
+\newcommand{\KET}[1]{\left| #1 \right\rangle }
+\newcommand{\BRA}[1]{\left\langle #1 \right| }
+\newcommand{\IP}[2]{\left\langle #1 \left| #2 \right\rangle \right.}
+\newcommand{\Ip}[2]{\left\langle #1, #2 \right\rangle}
+\newcommand{\nm}[1]{\left\| #1 \right\|}
+
+% Shortcuts for the section of 3D rotations
+\newcommand{\lo}{\textbf{L}_1}
+\newcommand{\ltw}{\textbf{L}_2}
+\newcommand{\lt}{\textbf{L}_3}
+
+% Shortcuts for geometric vectors
+\newcommand{\U}{\textbf{u}}
+\newcommand{\V}{\textbf{v}}
+\newcommand{\W}{\textbf{w}}
+\newcommand{\B}[1]{\mathbf{#1}}
+\newcommand{\BA}[1]{\hat{\mathbf{#1}}}
+
+% Other shortcuts
+
+\newcommand{\G}{\gamma}
+\newcommand{\LA}{\mathcal{L}}
+\newcommand{\X}{\Vec{x}}
+\newcommand{\x}{\Vec{x}}
+
+\newcommand{\LP}{\left(}
+\newcommand{\RP}{\right)}
+
+\newcommand{\DI}{\mbox{dist}}
+
+\newcommand{\PA}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand{\HI}{\mathcal{H}}
+\newcommand{\AL}{\mathcal{A}}
+
+\newcommand{\D}{\partial}
+
+\newcommand{\bs}{\textbackslash}
+
+\newcommand{\T}{\mathcal{T}}
+
+\numberwithin{equation}{section}
+\setcounter{section}{0}
+
+
+
+
+
+\def\Xint#1{\mathchoice
+{\XXint\displaystyle\textstyle{#1}}%
+{\XXint\textstyle\scriptstyle{#1}}%
+{\XXint\scriptstyle\scriptscriptstyle{#1}}%
+{\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+\!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$ }
+\vcenter{\hbox{$#2#3$ }}\kern-.6\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+
+
+
+\begin{document}
+
+
+\title{Notes on Metric and Normed Spaces}
+\author{Mathew Calkins\\
+  \texttt{mathewpcalkins@gmail.com}}
+
+\date{\today}
+
+\maketitle
+
+
+\section{Metrics and norms}
+
+\textbf{Claim} The unit ball in any normed linear space is convex.\\
+\\
+\
+\textbf{Proof} Let $X$ be a linear space with norm $\nm{\cdot}$. As usual, denote by $\overline{B}$ the unit ball \begin{equation*}
+\overline{B} = \{ x \in X \ : \ \nm{x} \leq 1 \}.
+\end{equation*}
+To demonstrate convexity, fix arbitrary $x, y \in \overline{B}$ and $t \in [0, 1]$. We claim that \begin{equation*}
+tx + (1-t)y \in \overline{B}
+\end{equation*}
+or equivalently that \begin{equation*}
+\nm{tx + (1-t)y} \leq 1.
+\end{equation*}
+Indeed, \begin{align*}
+\nm{tx + (1-t)y} & \leq \nm{tx} + \nm{(1-t)y} \\
+\ & = t \nm{x} + (1-t) \nm{y} \\
+\ & \leq t \cdot 1 + (1-t) \cdot 1 \\
+\ & 1.
+\end{align*}
+QED\\
+\\
+\
+\textbf{Claim} If $(X, \nm{\cdot})$ is a normed linear space, then \begin{equation*}
+d(x,y) = \frac{\nm{x-y}}{1 + \nm{x-y}}
+\end{equation*}
+defined a nonhomogenous, translation-invariant metric on $X$.\\
+\\
+\
+\textbf{Proof} We proof that $d: X \times X \to \R$ is a metric one property at a time. Since the top and bottom of our fraction are always nonnegative, we have that $d(x,y) \geq 0$ for all $x, y \in X$. And the only time $d(x,y) = 0$ is when $\nm{x-y} = 0$, which occurs only when $x = y$, so $d(x,y) = 0 \iff x = y$. Symmetry ($d(x,y) = d(y,x)$) is clear by inspection.\\
+\\
+\
+The triangle inequality is harder. Fix $x, y, z \in X$. We wish to show that \begin{equation*}
+\frac{\nm{x-y}}{1 + \nm{x-y}} + \frac{\nm{y-z}}{1 + \nm{y-z}} \geq \frac{\nm{x-z}}{1 + \nm{x-z}}.
+\end{equation*}
+
+\section{Convergence}
+
+
+\textbf{Definition 1.12} A sequence $(x_n)$ in a metric space $(X, d)$ is \textit{Cauchy} if $\forall \epsilon > 0, \exists N$ such that $m, n \geq N \in \N \implies d(x_n, x_m) < \epsilon$.\\
+\\
+\
+\textbf{Definition 1.16} (Usual definition of convergence in a metric space)\\
+\\
+\
+\textbf{Claim} In a general metric space, every convergent sequence in is Cauchy.\\
+\\
+\
+\textbf{Proof} Let $(X, \nm{\cdot})$ be a metric space and let $\{x_n\}$ be a sequence in $X$ converging to $x \in X$. Fix $\epsilon > 0$. So there exists $N$ such that $n \geq N \implies d(x, x_n) < \epsilon/2$. Then for all $m, n \geq N$ the triangle inequality implies \begin{align*}
+d(x_n, x_m) & \leq d(x, x_n) + d(x, x_m) \\
+\ & < \epsilon/2 + \epsilon / 2 \\
+\ & = \epsilon.
+\end{align*}
+QED\\
+\\
+\
+\textbf{Definition 1.17} A metric space $(X, d)$ is \textit{complete} if every Cauchy sequence in $X$ converges to a limit in $X$. A subset $Y$ is \textit{complete} if the metric subspace $(Y, d|_Y)$ is complete. A \textit{Banach space} is a normed linear space which is complete with respect to the norm-induced metric.
+
+
+
+
+
+
+
+\section{Upper and lower bounds}
+
+\textbf{Definition 1.20} (defitions of \textit{upper bound, lower bound, bounded from above, bounded from below} for subsets of $\R$)\\
+\\
+\
+\textbf{Definition 1.121} (definitions of \textit{supremum / least upper bound} and \textit{infimum / greatest lower bound})\\
+\\
+\
+Note that Hunter uses \textit{monotone increasing} to mean \textit{non-decreasing} ($n > m \implies x_n \geq x_m$) and likewise for \textit{monotone decreasing}.\\
+\\
+\
+Given a sequence $(x_n)$ in $\R$, we define \begin{equation*}
+\mbox{lim sup } x_n = \lim_{n \to \infty} \left[ \sup \{ x_k \ | \ k \geq n \} \right].
+\end{equation*}
+Notice that the sequence $(y_n)$ on the inside of the RHS given by \begin{equation*}
+y_n = \sup \{ x_k \ | \ k \geq n \} 
+\end{equation*}
+is monotone increasing (i.e., never decreasing). We similarly define \begin{equation*}
+\mbox{lim inf } x_n = \lim_{n \to \infty} \left[ \inf \{ x_k \ | \ k \geq n \} \right].
+\end{equation*}
+Both of these values always exist, as long as we allow $\pm \infty$ in addition to real values. Observe that \begin{equation*}
+\sup \{ x_k \ | \ k \geq n \}  \geq \inf \{ x_k \ | \ k \geq n \} 
+\end{equation*}
+and that the LHS is a monotone Notice that $(x_n)$ is convergent if and only if lim inf $ x_n = $ lim sup $x_n$, in which case it converges to their common value.
+
+
+
+
+\end{document}
