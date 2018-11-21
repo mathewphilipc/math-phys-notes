@@ -1,0 +1,136 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath, amssymb, mathtools, slashed}
+
+% Commonly used sets of numbers
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+
+% Shortcuts for inner product spaces
+\newcommand{\KET}[1]{\left| #1 \right\rangle }
+\newcommand{\BRA}[1]{\left\langle #1 \right| }
+\newcommand{\IP}[2]{\left\langle #1 \left| #2 \right\rangle \right.}
+\newcommand{\Ip}[2]{\left\langle #1, #2 \right\rangle}
+\newcommand{\nm}[1]{\left\| #1 \right\|}
+
+% Shortcuts for the section of 3D rotations
+\newcommand{\lo}{\textbf{L}_1}
+\newcommand{\ltw}{\textbf{L}_2}
+\newcommand{\lt}{\textbf{L}_3}
+
+% Shortcuts for geometric vectors
+\newcommand{\U}{\textbf{u}}
+\newcommand{\V}{\textbf{v}}
+\newcommand{\W}{\textbf{w}}
+\newcommand{\B}[1]{\mathbf{#1}}
+\newcommand{\BA}[1]{\hat{\mathbf{#1}}}
+
+% Other shortcuts
+
+\newcommand{\G}{\gamma}
+\newcommand{\LA}{\mathcal{L}}
+\newcommand{\X}{\Vec{x}}
+\newcommand{\x}{\Vec{x}}
+
+\newcommand{\LP}{\left(}
+\newcommand{\RP}{\right)}
+
+\newcommand{\DI}{\mbox{dist}}
+
+\newcommand{\PA}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand{\HI}{\mathcal{H}}
+\newcommand{\AL}{\mathcal{A}}
+
+\newcommand{\D}{\partial}
+
+\newcommand{\bs}{\textbackslash}
+
+\newcommand{\T}{\mathcal{T}}
+
+\numberwithin{equation}{section}
+\setcounter{section}{0}
+
+
+
+
+
+\def\Xint#1{\mathchoice
+{\XXint\displaystyle\textstyle{#1}}%
+{\XXint\textstyle\scriptstyle{#1}}%
+{\XXint\scriptstyle\scriptscriptstyle{#1}}%
+{\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+\!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$ }
+\vcenter{\hbox{$#2#3$ }}\kern-.6\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+
+
+
+\begin{document}
+
+
+\title{Continuous Functions}
+\author{Mathew Calkins\\
+  \texttt{mathewpcalkins@gmail.com}}
+
+\date{\today}
+
+\maketitle
+
+
+\section{Convergence of functions}
+
+Given a metric space $(X, d)$ and a collection of functions $f_n: X \to \R$, we distinguish between two notions of convergence to $f: X \to \R$. \begin{itemize}
+\item Pointwise convergence: for all $x \in X$, $\lim_{n \to \infty} f_n(x) = f(x)$.
+\item Metric convergence: $\lim_{n \to \infty} \nm{f_n - f} = 0$ for some metric $\nm{\cdot}$ on the space of functions from which we draw each $f_n$.
+\end{itemize}
+By considering the sequence of maps $f_n: [0,1] \to \R$ given by $x \mapsto x^n$, we see that a pointwise-convergent sequence of continuous functions may have a discontinuous limit. So this is a bad notion of convergence if we want to restrict ourselves to continuous functions.\\
+\\
+\
+For continuous functions $f: X \to \R$, a natural norm on spaces of continuous functions is the \textit{uniform} or \text{sup} norm \begin{equation*}
+\nm{f} = \sup _{x \in X} |f(x)|.
+\end{equation*}
+Imagining the behavior of the $L^p$ norm for large $p$, this is sometimes written $\nm{\cdot}_\infty$.
+
+
+
+
+
+\section{Spaces of continuous functions}
+
+
+
+
+
+
+
+
+
+\section{Approximation by polynomials}
+
+
+
+
+
+
+
+
+
+
+
+\section{Compact subsets of $C(K)$}
+
+
+
+
+
+
+
+\section{Ordinary differential equations}
+
+
+\end{document}
