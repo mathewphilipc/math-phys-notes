@@ -1,0 +1,257 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath, amssymb, mathtools, slashed}
+
+% Commonly used sets of numbers
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+
+% Shortcuts for inner product spaces
+\newcommand{\KET}[1]{\left| #1 \right\rangle }
+\newcommand{\BRA}[1]{\left\langle #1 \right| }
+\newcommand{\IP}[2]{\left\langle #1 \left| #2 \right\rangle \right.}
+\newcommand{\Ip}[2]{\left\langle #1, #2 \right\rangle}
+\newcommand{\nm}[1]{\left\| #1 \right\|}
+
+% Shortcuts for the section of 3D rotations
+\newcommand{\lo}{\textbf{L}_1}
+\newcommand{\ltw}{\textbf{L}_2}
+\newcommand{\lt}{\textbf{L}_3}
+
+% Shortcuts for geometric vectors
+\newcommand{\U}{\textbf{u}}
+\newcommand{\V}{\textbf{v}}
+\newcommand{\W}{\textbf{w}}
+\newcommand{\B}[1]{\mathbf{#1}}
+\newcommand{\BA}[1]{\hat{\mathbf{#1}}}
+
+% Other shortcuts
+
+\newcommand{\G}{\gamma}
+\newcommand{\LA}{\mathcal{L}}
+\newcommand{\X}{\Vec{x}}
+\newcommand{\x}{\Vec{x}}
+
+\newcommand{\LP}{\left(}
+\newcommand{\RP}{\right)}
+
+\newcommand{\DI}{\mbox{dist}}
+
+\newcommand{\PA}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand{\HI}{\mathcal{H}}
+\newcommand{\AL}{\mathcal{A}}
+
+\newcommand{\D}{\partial}
+
+\newcommand{\bs}{\textbackslash}
+
+\newcommand{\T}{\mathcal{T}}
+
+\numberwithin{equation}{section}
+\setcounter{section}{-1}
+
+
+
+
+
+\def\Xint#1{\mathchoice
+{\XXint\displaystyle\textstyle{#1}}%
+{\XXint\textstyle\scriptstyle{#1}}%
+{\XXint\scriptstyle\scriptscriptstyle{#1}}%
+{\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+\!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$ }
+\vcenter{\hbox{$#2#3$ }}\kern-.6\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+
+
+
+\begin{document}
+
+
+\title{A First Amplitude}
+\author{Mathew Calkins\\
+  \texttt{mathewpcalkins@gmail.com}}
+
+\date{\today}
+
+\maketitle
+
+\abstract{We work through an elementary $S$-matrix calculation in scalar Yukawa theory following the popular exposition by David Tong. For pedagogical purposes, we proceed slowly and begin with a self-contained review of the necessary background in QFT.}
+
+\tableofcontents
+
+
+\section{Review of prequisite facts}
+
+\subsection{Free Fields}
+We are interested in the dynamics of a real massive scalar field $\phi$ and a complex massive scalar field $\psi$, whose corresponding respective particles we'll call mesons and nucleons. In its simplest free theory, the dynamics of $\phi$ are governed by the \textit{Klein Gordon} Lagrangian \begin{equation*}
+\LA_{\mbox{\scriptsize{KG}}} = \frac{1}{2} \D_\mu \phi \D^\mu \phi - \frac{1}{2} m^2 \phi^2.
+\end{equation*}
+The complex scalar field behaves with the natural complex general generalization of those dynamics. \begin{equation*}
+\LA_{\mbox{\scriptsize{KG}}, \C} = \D_\mu  \psi^* \D^\mu  \psi - M^2 \psi^* \psi .
+\end{equation*}
+Canonical quantization of $\phi$ in the Schr\"{o}dinger picture gives the operator-valued scalar field \begin{equation*}
+\phi_S (\B{x}) =  \int \frac{d^3 p}{(2 \pi)^3} \frac{1}{\sqrt{2 E_\B{p}}} \LP a_{\B{p}} e^{i \B{p} \cdot \B{x}} + a^\dagger_{\B{p}} e^{- i \B{p} \cdot \B{x}} \RP
+\end{equation*}
+where $E_\B{p}$ is shorthand for \begin{equation*}
+E_\B{p} = \sqrt{m^2 + \B{p}^2},
+\end{equation*}
+ $a^\dagger _\B{p}$ is a meson-producing creation operator \begin{equation*}
+a^\dagger _\B{p} \KET{\B{p}_1, \ldots, \B{p}_n} = \KET{\B{p}_1, \ldots, \B{p}_n, \B{p}}
+\end{equation*}
+and $a_\B{p}$ is the corresponding annihilation operator. Crucially, \begin{equation*}
+a_{\B{p}} \KET{\B{p}_1, \ldots, \B{p}_n} = 0
+\end{equation*}
+if none of the $\B{p}_i$ are equal to $\B{p}$. In particular, annihilation operators all annihilate the vacuum. \begin{equation*}
+a_{\B{p}} \KET{0} = 0.
+\end{equation*}
+A slightly different story holds for $\psi$. Canonical quantization gives \begin{equation*}
+\psi_S (\B{x}) =  \int \frac{d^3 p}{(2 \pi)^3} \frac{1}{\sqrt{2 E_\B{p}}} \LP b_{\B{p}} e^{i \B{p} \cdot \B{x}} + c^\dagger_{\B{p}} e^{- i \B{p} \cdot \B{x}} \RP.
+\end{equation*}
+Here $b$ is an annihilation operator for nucleons and $c^\dagger$ is a creation operator for \textit{anti}-nucleons. To create nucleons and annihilate anti-nucleons we apply the conjugate field 
+\begin{equation*}
+\psi^\dagger_S (\B{x}) =  \int \frac{d^3 p}{(2 \pi)^3} \frac{1}{\sqrt{2 E_\B{p}}} \LP b^\dagger_{\B{p}} e^{- i \B{p} \cdot \B{x}} + c_{\B{p}} e^{i \B{p} \cdot \B{x}} \RP.
+\end{equation*}
+Notice that when we quantize a complex field we replace superscripts as $* \rightarrow \dagger$.\\
+\\
+\
+To keep track of which fields create and annihilate which sorts of particles, we briefly record that \begin{align*}
+\phi & \sim a + a^\dagger, \\
+\psi & \sim b + c^\dagger, \\
+\psi^\dagger & \sim b^\dagger + c.
+\end{align*}
+
+
+
+\subsection{Basis states}
+In a universe of mesons, nucleons, and anti-nucleons, every possible state can be built up from the creation operators above. We have a single 0-particle basis vector \begin{equation*}
+\KET{0},
+\end{equation*}
+three collections of 1-particle basis vectors parametrized by momentum \begin{equation*}
+a_\B{p} \KET{0}, b_\B{p} \KET{0}, c_\B{p} \KET{0},
+\end{equation*}
+six collections of 2-particle basis states parametrized the same way \begin{equation*}
+a_\B{p} a_\B{q} \KET{0}, a_\B{p} b_\B{q} \KET{0}, a_\B{p} c_\B{q} \KET{0}, b_\B{p} b_\B{q} \KET{0}, b_\B{p} c_\B{q} \KET{0}, c_\B{p} c_\B{q} \KET{0}
+\end{equation*}
+and so on. Tthe commutation relations
+\begin{equation*}
+[a_{\B{p}}, a^\dagger_{\B{q}}] =[b_{\B{p}}, b^\dagger_{\B{q}}] = [c_{\B{p}}, c^\dagger_{\B{q}}]  = (2 \pi)^3 \delta^{(3)}(\B{p} - \B{q}),
+\end{equation*}
+tell us that basis states with identical particle content are Dirac-orthonormal up to a factor of $(2\pi)^3$. For example, let $\KET{\B{p}}$ and $\KET{\B{q}}$ be basis states each with a single meson. Then we have \begin{align*}
+\BRA{0} [a_{\B{p}}, a^\dagger_{\B{q}}] \KET{0} & = \BRA{0} (2 \pi)^3 \delta^{(3)}(\B{p} - \B{q}) \KET{0} \\
+\BRA{0} a_{\B{p}} a^\dagger_{\B{q}} \KET{0} - \BRA{0} a^\dagger_{\B{q}} a_{\B{p}} \KET{0} & = (2 \pi)^3 \delta^{(3)}(\B{p} - \B{q}) \IP{0}{0} \\
+\IP{\B{p}}{\B{q}} & = (2 \pi)^3 \delta^{(3)}(\B{p} - \B{q}).
+\end{align*}
+All other commutators of creation and annihilation operators vanish, which tells us that basis states that differ in their numbers of mesons, nucleons, or anti-nucleons are always orthogonal to one another.
+
+
+
+
+
+
+
+
+
+\subsection{The Interaction Picture}
+Frequently we are interested in systems with Hamiltonians of the form \begin{equation*}
+H = H_0 + H_{\mbox{\scriptsize{int}}}
+\end{equation*}
+where $H_0$ corresponds to a free theory with known spectrum. In that case it is helpful to transition into the \textit{interaction picture}, defined in terms of the Schr\"{o}dinger picture as follows. First, $H_0$ is defined to agree with the Schr\"{o}dinger picture: \begin{equation*}
+(H_0)_I = (H_0)_S.
+\end{equation*}
+Operators in general time evolve as \begin{equation*}
+\mathcal{O}_I (t) = e^{i H_0 t} \mathcal{O}_s e^{- i H_0 t}.
+\end{equation*}
+States evolve as \begin{equation*}
+\KET{\psi(t)}_I = e^{i H_0 t} \KET{\psi(t)}_S.
+\end{equation*}
+The dynamics of the states are then governed by the interaction Hamiltonian: \begin{equation*}
+i \frac{d \KET{\psi(t)}_I}{dt} = H_I (t) \KET{\psi(t)}_I
+\end{equation*}
+where we use the shorthand \begin{equation*}
+H_I (t)  \equiv (H_{\mbox{\scriptsize{int}}})_I(t).
+\end{equation*}
+\subsection{Dyson's formula}
+It's useful to write the dynamics of a theory in terms of a unitary time-evolution operator $U$ which acts as\begin{equation*}
+\KET{\psi(t)}_I = U(t, t_0) \KET{\psi(t_0)}_I.
+\end{equation*}
+This is soluble in terms of the familiar time-ordering operator as \begin{equation*}
+U(t, t_o) = T \exp \LP -i \int _{t_0} ^t H_I (t') dt' \RP.
+\end{equation*}
+We define the \textit{$S$-matrix} by declaring its matrix elements $\BRA{f} S \KET{i}$ to be \begin{equation*}
+\BRA{f} S \KET{i} = \lim _{t_\pm \to \pm \infty} \BRA{f} U(t_+, t_-) \KET{i}.
+\end{equation*}
+
+\subsection{Scalar Yukawa Theory}
+
+We work with in an interacting meson + nucleon theory built by combining the free theories we described earlier and adding an interaction term: \begin{align*}
+\LA & = \D_\mu  \psi^* \D^\mu  \psi + \frac{1}{2} \D_\mu \phi \D^\mu \phi & \mbox{(kinetic terms)}\\
+\ & \ \ \ - M^2 \psi^* \psi - \frac{1}{2} m^2 \phi^2 & \mbox{(free potential terms)} \\
+\ & \ \ \ - g \psi^* \psi \phi & \mbox{(interaction term)}
+\end{align*}
+The corresponding Hamiltonian is \begin{equation*}
+H = H_0 + H_{\mbox{\scriptsize{int}}}
+\end{equation*}
+where
+\begin{align*}
+H_0 & = \int d^3x \LP \D_\mu  \psi^* \D^\mu  \psi + \frac{1}{2} \D_\mu \phi \D^\mu \phi \right.\\
+\ & \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ + \left. M^2 \psi^* \psi + \frac{1}{2} m^2 \phi^2 \RP.
+\end{align*}
+and
+\begin{equation*}
+H_{\mbox{\scriptsize{int}}} = -g \int d^3 x \ \psi^\dagger \psi \phi.
+\end{equation*}
+The time evolution rule for operators in the interaction picture then gives \begin{equation*}
+\phi_I (x) =  \int \frac{d^3 p}{(2 \pi)^3} \frac{1}{\sqrt{2 \omega_\B{p}}} \LP a_{\B{p}} e^{- i p \cdot x} + a^\dagger_{\B{p}} e^{i p \cdot x} \RP
+\end{equation*}
+and
+\begin{equation*}
+\psi_I (x) =  \int \frac{d^3 p}{(2 \pi)^3} \frac{1}{\sqrt{2 \omega_\B{p}}} \LP b_{\B{p}} e^{ i p \cdot x} + c^\dagger_{\B{p}} e^{i p \cdot x} \RP.
+\end{equation*}
+But we aren't done yet as we don't have a nice closed-form description of state evolution. The next section computes this approximately 
+
+
+
+\section{Meson Decay}
+
+\subsection{Setting up the integral}
+We are interested in the amplitude for a meson to decay into a nucleon + anti-nucleon pair, computed out to linear order in the coupling constant $g$. We abbreviate this process as \begin{equation*}
+\phi \to \psi \overline{\psi}
+\end{equation*}
+For simplicity we use initial and final states of well-defined momenta. After applying the appropriately relativistic normalizations, our initial and final states are \begin{align*}
+\KET{i} & = \sqrt{2 E_\B{p}} a^\dagger _\B{p} \KET{0}, \\
+\KET{f} & = \sqrt{4 E_{\B{q}_1} E_{\B{q}_2} } b^\dagger _{\B{q}_1} c^\dagger _{\B{q}_2} \KET{0}.
+\end{align*}
+The quantity we are interested in is the $S$-matrix element \begin{equation*}
+\BRA{f} S \KET{i}.
+\end{equation*}
+As usual we will interchange limits as convenient without worrying about analytic subtleties.\\
+\\
+\
+By definition this matrix element is \begin{equation*}
+\BRA{f} S \KET{i} = \lim _{t_\pm \to \pm \infty} \BRA{f} U(t_+, t_-) \KET{i}.
+\end{equation*}
+Dyson's formula gives \begin{align*}
+\BRA{f} S \KET{i} & = \lim _{t_\pm \to \pm \infty} \BRA{f} \left[   T \exp \LP -i \int _{t_-} ^{t_+} H_I (t') dt' \RP  \right] \KET{i} \\
+\ & = \BRA{f} \left[   T \exp \LP -i \int _{-\infty} ^{\infty} H_I (t') dt' \RP  \right] \KET{i} \\
+\ & = \BRA{f} \left[ T \exp \LP -i g \int d^4 x \ \psi^\dagger_I (x) \psi_I (x) \phi_I (x) \RP \right] \KET{i}.
+\end{align*}
+Going out to linear order in $g$ means going out to the linear term in the exponential. \begin{equation*}
+T \exp \LP \cdots \RP = 1 - ig \int d^4 x \ \psi^\dagger_I (x) \psi_I (x) \phi_I (x) + o(g^2).
+\end{equation*}
+So our $S$-matrix element is \begin{align*}
+\BRA{f} S \KET{i} & = \BRA{f} \left[ 1 - ig \int d^4 x \ \psi^\dagger_I (x) \psi_I (x) \phi_I (x) \right] \KET{i} \\
+\ & = \IP{f}{i} - i g \int d^4 x \ \BRA{i} \psi^\dagger_I (x) \psi_I (x) \phi_I (x) \KET{f}.
+\end{align*}
+Our initial and final states have different particle content, so \begin{equation*}
+\BRA{f} S \KET{i}  = i g \int d^4 x \ \BRA{i} \psi^\dagger_I (x) \psi_I (x) \phi_I (x) \KET{f}.
+\end{equation*}
+\end{document}
+
+
+

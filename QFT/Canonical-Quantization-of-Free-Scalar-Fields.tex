@@ -1,0 +1,239 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath, amssymb, mathtools, slashed}
+
+% Commonly used sets of numbers
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+
+% Shortcuts for inner product spaces
+\newcommand{\KET}[1]{\left| #1 \right\rangle }
+\newcommand{\BRA}[1]{\left\langle #1 \right| }
+\newcommand{\IP}[2]{\left\langle #1 \left| #2 \right\rangle \right.}
+\newcommand{\Ip}[2]{\left\langle #1, #2 \right\rangle}
+\newcommand{\nm}[1]{\left\| #1 \right\|}
+
+% Shortcuts for the section of 3D rotations
+\newcommand{\lo}{\textbf{L}_1}
+\newcommand{\ltw}{\textbf{L}_2}
+\newcommand{\lt}{\textbf{L}_3}
+
+% Shortcuts for geometric vectors
+\newcommand{\U}{\textbf{u}}
+\newcommand{\V}{\textbf{v}}
+\newcommand{\W}{\textbf{w}}
+\newcommand{\B}[1]{\mathbf{#1}}
+\newcommand{\BA}[1]{\hat{\mathbf{#1}}}
+
+% Other shortcuts
+
+\newcommand{\G}{\gamma}
+\newcommand{\LA}{\mathcal{L}}
+\newcommand{\X}{\Vec{x}}
+\newcommand{\x}{\Vec{x}}
+
+\newcommand{\LP}{\left(}
+\newcommand{\RP}{\right)}
+
+\newcommand{\DI}{\mbox{dist}}
+
+\newcommand{\PA}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand{\HI}{\mathcal{H}}
+\newcommand{\AL}{\mathcal{A}}
+
+\newcommand{\D}{\partial}
+
+\newcommand{\bs}{\textbackslash}
+
+\newcommand{\T}{\mathcal{T}}
+
+\numberwithin{equation}{section}
+\setcounter{section}{-1}
+
+
+
+
+
+\def\Xint#1{\mathchoice
+{\XXint\displaystyle\textstyle{#1}}%
+{\XXint\textstyle\scriptstyle{#1}}%
+{\XXint\scriptstyle\scriptscriptstyle{#1}}%
+{\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+\!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$ }
+\vcenter{\hbox{$#2#3$ }}\kern-.6\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+
+
+
+\begin{document}
+
+
+\title{Canonical Quantization of Free Scalar Fields}
+\author{Mathew Calkins\\
+  \texttt{mathewpcalkins@gmail.com}}
+
+\date{\today}
+
+\maketitle
+
+
+
+
+
+
+
+
+\tableofcontents
+
+\section{Conventions}
+We work in 3+1 spacetime (i.e., three spatial dimensions and one temporal dimension). Aiming for consistency with most introductory QFT literature (and against consistency with most introductory books on general relativity or string theory), we work with the \textit{mostly minus} convention in which \begin{equation*}
+    \eta_{\mu \nu} = \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & -1 & 0 & 0 \\
+    0 & 0 & -1 & 0 \\
+    0 & 0 & 0 & -1
+    \end{pmatrix}
+\end{equation*}
+When it's necessary to split out the spatial and temporal component of an object, we like to write the spatial part in bold. For example, local distance works like \begin{align*}
+    ds^2 & = dt^2 - d\B{x} \cdot d\B{x}
+\end{align*}
+We also use the Einstein summation convention: \begin{align*}
+A^\mu B_\mu \equiv \sum_{\mu = 0} ^3 A^\mu B_\mu
+\end{align*}
+
+\section{Classical Theory}
+We start with the Klein Gordon Lagrangian (density) \begin{align*}
+    \LA(\phi, \partial \phi) & = \frac{1}{2}\left\| d \phi \right\|^2 - \frac{1}{2} m^2 \phi^2 \\
+    \ & = \frac{1}{2} \eta^{\mu \nu} \partial_\mu \phi \partial_\nu \phi - \frac{1}{2} m^2 \phi^2 \\
+    \ & = \frac{1}{2} \dot{\phi}^2 - \frac{1}{2} (\nabla \phi)^2 - \frac{1}{2} m^2 \phi^2.
+\end{align*}
+The Klein Gordan field $\phi$ then has conjugate momentum \begin{equation*}
+\pi = \PA{\LA}{\dot{\phi}} = \dot{\phi}.
+\end{equation*}
+Varying the action with respect to $\phi$ gives the Klein Gordan equation \begin{equation*}
+\partial_\mu \partial^\mu \phi + m^2 \phi = 0
+\end{equation*}
+or equivalently \begin{equation*}
+    (\Box  + m^2)\phi = 0.
+\end{equation*}
+If we Fourier decompose $\phi(\B{x},t)$ as \begin{equation*}
+\phi(\B{x},t) = \int \frac{d^3 p}{(2\pi)^3} e^{i \B{p} \cdot \B{x}} \phi(\B{p}, t)
+\end{equation*}
+We find that the Fourier modes decouple, separately satisfying \begin{align*}
+0 & = \left[ \PA{}{t^2} + \B{p}^2 + m^2 \right] \phi(\B{p},t) \\
+\ & = \left[ \PA{}{t^2} + \omega^2_{\B{p}}  \right] \phi(\B{p},t)
+\end{align*}
+where we denote \begin{equation*}
+\omega_p = \sqrt{\B{p}^2 + m^2}.
+\end{equation*}
+In other words, the Fourier modes time-evolve independently as classical harmonic oscillators.\\
+\\
+\
+From the Lagrangian and the conjugate momentum we find the Hamiltonian (density) \begin{align*}
+\mathcal{H} & = \dot{\phi} \pi - \LA \\
+\ & = \frac{1}{2} \dot{\phi}^2 + (\nabla \phi)^2 + \frac{1}{2} m^2 \phi^2 \\
+\ & = \frac{1}{2} \pi^2 + (\nabla \phi)^2 + \frac{1}{2} m^2 \phi^2
+\end{align*}
+Moving from the Lagrangian to the Hamiltonian framework sacrifices manifest Lorentz invariance, but must retain actual Lorentz invariance in its predictions since it the two frameworks are equivalent where they are both defined.
+
+
+\section{The Schr\"{o}dinger picture}
+
+\subsection{Canonical comutation}
+
+Recall that, in the case of Galilean mechanics, we passed from classical theories to quantum theories in the Schr\"{o}dinger picture by replacing the classical dynamical values with time-independent operators  \begin{align*}
+    \mbox{real } \B{q} = \B{q}(t), \B{p} = \B{p}(t) & \mapsto \mbox{operators } \B{q}, \B{p}
+\end{align*}
+acting on a state space that encoded the time dependence. We then demand that the operators' components satisfying the canonical commutation relations \begin{align*}
+[x^i, x^j] = [p_i, p_j] & = 0, \\
+[x^i, p_j] & = i \delta_i ^j.
+\end{align*}
+We follow the same pattern for the field case. Our (real, scalar) quantum field will be an operator-valued field $\phi$ over space satisfying the canonical commutation relations \begin{align*}
+[\phi(\B{x}), \phi(\B{y})] = [\pi(\B{x}), \pi(\B{y})] & = 0, \\
+[\phi(\B{x}), \pi(\B{y}] & = i \delta^{(3)}(\B{x} - \B{y})
+\end{align*}
+As in the mechanical case, we won't worry at first about exactly what space these act on. And as in that case, we will be able to do a remarkable amount of useful analysis without answering that question.
+
+\subsection{Fourier decomposition}
+
+In the classical case, we found that Fourier nodes time-evolved independently. Under the suspicion that something similar should be helpful here, we Fourier decompose the Klein-Gordon field. Since we are working in the quantized version of a theory in which individual Fourier modes act as harmonic oscillators, we recall that the spectrum of the 1D quantum harmonic oscillator was found by decomposing $q$ and $p$ into creation and annihilation operators as \begin{align*}
+q & = \frac{1}{\sqrt{2 \omega}}(a + a^\dagger), \\
+p & = -i \sqrt{\frac{\omega}{2}} (a - a^\dagger).
+\end{align*}
+Working by analogy, we decompose $\phi$ and $\pi$ as \begin{equation}
+\phi(\B{x}) = \int \frac{d^3 p}{(2 \pi)^3} \frac{1}{\sqrt{2 \omega_\B{p}}} \left[ a_{\B{p}} e^{i \B{p} \cdot \B{x}} + a^\dagger_{\B{p}} e^{- i \B{p} \cdot \B{x}} \right]
+\end{equation}
+and
+\begin{equation}
+\pi(\B{x}) = -i \int \frac{d^3 p}{(2 \pi)^3} \sqrt{\frac{\omega_\B{p}}{2}} \left[ a_{\B{p}} e^{i \B{p} \cdot \B{x}} - a^\dagger_{\B{p}} e^{- i \B{p} \cdot \B{x}} \right]
+\end{equation}
+Under this decomposition, the commutation relations on $\phi$ and $\pi$ are equivalent to the following commutation relations on the creation and annihilation operators: \begin{align*}
+[a_{\B{p}}, a_{\B{q}}] = [a^\dagger_{\B{p}}, a^\dagger_{\B{q}}] & = 0, \\
+[a_{\B{p}}, a^\dagger_{\B{q}}] & = (2 \pi)^3 \delta^{(3)}(\B{p} - \B{q}).
+\end{align*}
+
+\subsection{The Hamiltonian}
+
+Integrating the Hamiltonian density \begin{equation*}
+\mathcal{H} = \frac{1}{2} \pi^2 + (\nabla \phi)^2 + \frac{1}{2} m^2 \phi^2
+\end{equation*}
+gives the Hamiltonian \begin{align*}
+H & = \int d^3 x \left[  \frac{1}{2} \pi^2 + (\nabla \phi)^2 + \frac{1}{2} m^2 \phi^2 \right] \\
+\ & = \cdots \\
+\ & = \int \frac{d^3 p}{(2 \pi)^3} \omega_{\B{p}} \LP a_{\B{p}}^\dagger a_{\B{p}} + \frac{1}{2} \left[ a_{\B{p}}, a^\dagger _{\B{p}} \right] \RP \\
+\ & = \int \frac{d^3 p}{(2 \pi)^3} \omega_{\B{p}} a_{\B{p}}^\dagger a_{\B{p}} + \frac{1}{2} \int d^3p \omega_\B{p} \delta^{(3)}(0)
+\end{align*}
+There are good physical reasons to drop the divergent term.\\
+\\
+\
+The first reason, noted mainly for culture and physical intuition: the divergent term can be thought of as having two infinities. The obvious infinity in the $\delta^{(3)}(0)$ comes from an integration over all of space, so we can temporarily imagine that space is very large but ultimately finite to tame that contribution. The other comes from the integration over $d^3 p$, which is done over all of $\R^3$. However, the prescription to integrate over all real momenta is essentially premised on the assumption that the framework of QFT holds up as a good model for physics out to arbitrarily high momenta. The modern understanding is that QFT as it's done in these notes is a computationally useful effective theory that emerges approximately from some more exact framework (strings? something else?). So we can imagine that we are only integrating over some large but finite region in $\B{p}$ space. If we take both of these suggestions as plausible, we recall that the theory of special relativity implies that there is no way to physically measure absolute energies, but only energy differences. So we are free to subtract this large constant term off of our Hamiltonian. The deepest problem with this argument is that, at classical length scales, special relativity is known to be only an approximation to general relativity. And in general relativity, absolute energies \textit{are} physically meaningful and perfectly measurable.\\
+\\
+\
+And now the tighter reason: we have some freedom in defining our Hamiltonian due to \textit{ordering ambiguities}. In the case of the quantun mechanical harmonic oscillator, the classical Hamiltonian \begin{equation*}
+\frac{1}{2} p^2 + \frac{1}{2} \omega^2 q^2
+\end{equation*}
+gave rise to a quantum Hamiltonian \begin{equation*}
+H_{\mbox{old}} = \omega a^\dagger a + \frac{1}{2} \omega.
+\end{equation*}
+But if we had equivalently rewritten the classical Hamiltonian as \begin{equation*}
+\frac{1}{2} (\omega q - ip)(\omega q + ip)
+\end{equation*}
+the quantum result would have been \begin{equation*}
+H_{\mbox{new}} = \omega a^\dagger a .
+\end{equation*}
+In other words, the freedom to rearrange real classical observables means that the classical $\rightarrow$ quantum transition has some ambiguity. If we want to find a quantum operator that corresponds to our classical Hamiltonian we have some freedom to pick the operator that gives sensible results. With this in mind, we introduce the \textit{normal ordering} of an operator: \begin{equation*}
+: \mathcal{O}: \ \equiv \mathcal{O} \mbox{ but with all annihilation operators placed to the right}.
+\end{equation*}
+Then we have \begin{equation*}
+:H: = \int \frac{d^3 p}{(2 \pi)^3} \omega_{\B{p}} a_{\B{p}}^\dagger a_{\B{p}}.
+\end{equation*}
+Moving forward, whenever we write $H$ we mean its normal ordering.
+
+\subsection{Particles}
+
+And now for some physical interpretation. There are lots of elegant words we could drape around these equations, but we'll make a long story short and work by analogy with the simple harmonic oscillator from quantum mechanics. First we define the vacuum state by its vanishing under the action of all annihilation operators. \begin{equation*}
+a_{\B{p}} \KET{0} = 0 \mbox{ for all } \B{p} \in \R^3
+\end{equation*}
+and normalize it as \begin{equation*}
+\IP{0}{0} = 1.
+\end{equation*}
+Next we interpret the creation operators as creating particles of well-defined momenta: \begin{align*}
+a_{\B{p}} \KET{0} & = \KET{\B{p}}, \\
+a_{\B{p}} \KET{\B{q}} & = \KET{\B{q}, \B{p}}, \\
+\ & \ \ \vdots \\
+a_{\B{p}} \KET{\B{p}_1, \ldots, \B{p}_n} & = \KET{\B{p}_1, \ldots, \B{p}_n, \B{q}}.
+\end{align*}
+
+
+
+
+
+
+
+
+\end{document}
