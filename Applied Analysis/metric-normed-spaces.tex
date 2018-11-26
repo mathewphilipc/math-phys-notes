@@ -81,6 +81,7 @@
 
 \maketitle
 
+\tableofcontents{
 
 \section{Metrics and norms}
 
@@ -100,7 +101,7 @@ Indeed, \begin{align*}
 \nm{tx + (1-t)y} & \leq \nm{tx} + \nm{(1-t)y} \\
 \ & = t \nm{x} + (1-t) \nm{y} \\
 \ & \leq t \cdot 1 + (1-t) \cdot 1 \\
-\ & 1.
+\ & = 1.
 \end{align*}
 QED\\
 \\
@@ -146,6 +147,14 @@ QED\\
 
 
 
+
+
+
+
+
+
+
+
 \section{Upper and lower bounds}
 
 \textbf{Definition 1.20} (defitions of \textit{upper bound, lower bound, bounded from above, bounded from below} for subsets of $\R$)\\
@@ -166,12 +175,200 @@ y_n = \sup \{ x_k \ | \ k \geq n \}
 is monotone increasing (i.e., never decreasing). We similarly define \begin{equation*}
 \mbox{lim inf } x_n = \lim_{n \to \infty} \left[ \inf \{ x_k \ | \ k \geq n \} \right].
 \end{equation*}
-Both of these values always exist, as long as we allow $\pm \infty$ in addition to real values. Observe that \begin{equation*}
-\sup \{ x_k \ | \ k \geq n \}  \geq \inf \{ x_k \ | \ k \geq n \} 
+Both of these values always exist, as long as we allow $\pm \infty$ in addition to real values. Observe the useful sandwiching \begin{equation*}
+\sup \{ x_k \ | \ k \geq 1 \} \geq \sup \{ x_k \ | \ k \geq n \}  \geq x_n \geq \inf \{ x_k \ | \ k \geq n \}  \geq \inf \{ x_k \ | \ k \geq 1 \} .
 \end{equation*}
-and that the LHS is a monotone Notice that $(x_n)$ is convergent if and only if lim inf $ x_n = $ lim sup $x_n$, in which case it converges to their common value.
+Notice that $(x_n)$ is convergent if and only if lim inf $ x_n = $ lim sup $x_n$, in which case it converges to their common value.
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Continuity}
+
+\textbf{Definition 1.26 (continuity in a metric space)} $f: X \to Y$ is \textit{continuous} at $x_0 \in X$ if $\forall \epsilon >0$, there exists $\delta > 0$ such that \begin{equation*}
+d_X(x, x_0) < \delta \implies d_Y(f(x), f(x_0)) < \epsilon.
+\end{equation*}
+$f:X \to Y$ is \textit{continuous on} $X$ if it is continuous at every points in $X$.\\
+\\
+\
+\textbf{Example 1.27 (distance is continuous)} Fix $a \in X$ and define $f: X \to \R$ by $f(x) = d(x, a)$. Then $f$ is continuous on $A$.\\
+\\
+\
+\textbf{Proof} Per the premise, let $(X, d)$ be a metric space with some $a \in X$ and define $f: X \to \R$ by the rule $f(x) = d(x,a)$. To show continuity, fix arbitrary $x_0 \in X$ and $\epsilon > 0$. Being carefully about which metrics are used where, we wish to find $\delta > 0$ such that \begin{equation*}
+d_X(x, x_0) < \delta \implies d_{\R} (f(x), f(x_0)) < \epsilon.
+\end{equation*}
+From the definition of $f$, this is equivalent to the condition \begin{equation*}
+d_X(x, x_0) < \delta \implies |d_X(x, a) - d_X(x_0,a)| < \epsilon.
+\end{equation*}
+But according to the following corrolary of the triangle inequality: \begin{equation*}
+d(x_1, x_2) \geq |d(x_1, x_3) - d(x_2, x_3)|.
+\end{equation*}
+It suffices to set $\delta = \epsilon$. QED\\
+\\
+\
+\textbf{Definition 1.30 (uniform continuity in a metric space)} A function $f: X \to Y$ is \textit{uniformly continuous} on $X$ if for all $\epsilon > 0$, there exists $\delta > 0$ such that 
+\begin{equation*}
+d_X(x,y) < \delta \implies d_Y(f(x), f(y)) < \epsilon
+\end{equation*}
+for all $x, y \in X$. This differs from regular continuity in that $\delta$ is independent of  $x, y \in X$.\\
+\\
+\
+\textbf{Example 1.32} A function $f: \R^n \to \R^m$ is \textit{affine} if \begin{equation*}
+f(tx + (1-t)y) = t f(x) + (1-t)f(y) \ \forall x, y \in \R^n \mbox{ and } t \in [0,1].
+\end{equation*}
+Every affine function is uniformly continuous and has the form $x \mapsto Ax + b$ for some constant matrix $M$ and constant vector $b$.\\
+\\
+\
+\textbf{Definition 1.33} A function $f: X \to Y$ is \textit{sequentially continuous} at $x \in X$ if, for every sequence $(x_n)$ converging to $x \in X$, the sequence $(f(x_n))$ converges to $f(x) \in Y$.\\
+\\
+\
+\textbf{Proposition 1.34} Let $X, Y$ be metric spaces. Then $f: X \to Y$ is continuous at $x \in X$ if and only if it is sequentially continuous at that point.
+
+
+
+
+
+
+
+
+
+
+
+\section{Open and closed sets}
+
+
+Open and closed balls in a metric space $(X,d)$: \begin{align*}
+B_r(a) & = \{ x \in X \ | \ d(x,a) < r \}, \\
+\overline{B}_r(a) & = \{ x \in X \ | \ d(x,a) \geq r \}.
+\end{align*}
+\textbf{Definition 1.36 (open and closed sets in a metric space)} Let $(X, d)$ be a metric space. A subset $G \subset X$ is \textit{open} if $\forall x \in G$, there exists $r > 0$ such that $B_r(x) \subset G$. A subset $F \subset X$ is \textit{closed} if its complement $F^c = X - F$ is open.\\
+\\
+\
+\textbf{Example 1.39 (rationals have Lebesgue measure zero)} Let $\{q_n \ | \ n \in \N\}$ be an enumeration of $\Q$ and fix $\epsilon > 0$. For each $n \in N$, consider the open interval \begin{equation*}
+I_n = \LP q_n - \frac{\epsilon}{2^n}, q_n + \frac{\epsilon}{2^n} \RP.
+\end{equation*}
+The union $\cup_{n \in \N} I_n$ is very interesting: it covers $\Q$, and yet the sum of the lengths of the intervals is $2\epsilon$, where $\epsilon$ can be made as small as we want. A subset of $\R$ has \textit{Lebesgue measure zero} if $\forall \epsilon > 0$, there exists a countable collection of open intervals whose unions contains the subset and such that the sum of the lengths of the intervals is less than $\epsilon$.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{The completion of a metric space}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Compactness}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Maxima and minima}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Exercises}
+
+
+
+\textbf{Exercise 1.2} Give an $\epsilon-\delta$ proof that \begin{equation*}
+\sum_{n=0} ^\infty x^n = \frac{1}{1 - x},
+\end{equation*}
+when $|x| < 1$.\\
+\\
+\
+\textbf{Solution} We begin by obtaining a nice expression for the $n$th partial sum \begin{equation*}
+s_n (x) = \sum_{n=0} ^k x^k = 1 + x + x^2 + \cdots + x^k.
+\end{equation*}
+To do so, observe that \begin{align*}
+x s_n (x)& = x \sum_{n=0} ^k x^k \\
+\ & = x + x^2 + \cdots + x^{k+1} \\
+\ & = s_n (x) + x^{k+1} - 1.
+\end{align*}
+Solving for $s_n(x)$ gives \begin{equation*}
+s_n(x) = \frac{1- x^{k+1} }{1 - x}.
+\end{equation*}
+In other words, \begin{align*}
+s_n(x) & = \frac{1- x^{k+1} }{1 - x} \\
+\ & = \frac{1}{1 - x} - \frac{x^{k+1}}{1 - x}.
+\end{align*}
+So it finally suffices to show that $\lim_{n \to \infty} x^n = 0$ for $|x| < 1$. For $\epsilon > 0$, we need to find $N \in \N$ such that $n \geq N$ implies $|x^n| < \epsilon$. To do so, simply set $N > \log_x (\epsilon)$. QED\\
+\\
+\
+\textbf{Exercise 1.3} If $x, y, z$ are points in a metric space $(X, d)$, show that \begin{equation*}
+d(x,y) \geq |d(x,z) - d(y,z)|
+\end{equation*}
+\textbf{Solution} The triangle inequality tells us that \begin{equation*}
+d(x, z) \geq d(x, y) + d(y, z)
+\end{equation*}
+and \begin{equation*}
+d(y, z) \geq d(x, y) + d(x, z).
+\end{equation*}
+Isolating $d(x,y)$ in both inequalities gives \begin{align*}
+d(x,y) & \leq d(x,z) - d(y,z), \\
+d(x,y) & \leq - ((d,z) - d(y,z)).
+\end{align*}
+Equivalently, \begin{equation*}
+d(x,y) \leq |d(x,z) - d(y,z)|.
+\end{equation*}
+QED
 
 \end{document}
