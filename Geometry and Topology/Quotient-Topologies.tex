@@ -1,0 +1,124 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath, amssymb, mathtools, slashed}
+
+% Commonly used sets of numbers
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+
+% Shortcuts for inner product spaces
+\newcommand{\KET}[1]{\left| #1 \right\rangle }
+\newcommand{\BRA}[1]{\left\langle #1 \right| }
+\newcommand{\IP}[2]{\left\langle #1 \left| #2 \right\rangle \right.}
+\newcommand{\Ip}[2]{\left\langle #1, #2 \right\rangle}
+\newcommand{\nm}[1]{\left\| #1 \right\|}
+
+% Shortcuts for the section of 3D rotations
+\newcommand{\lo}{\textbf{L}_1}
+\newcommand{\ltw}{\textbf{L}_2}
+\newcommand{\lt}{\textbf{L}_3}
+
+% Shortcuts for geometric vectors
+\newcommand{\U}{\textbf{u}}
+\newcommand{\V}{\textbf{v}}
+\newcommand{\W}{\textbf{w}}
+\newcommand{\B}[1]{\mathbf{#1}}
+\newcommand{\BA}[1]{\hat{\mathbf{#1}}}
+
+% Other shortcuts
+
+\newcommand{\G}{\gamma}
+\newcommand{\LA}{\mathcal{L}}
+\newcommand{\X}{\Vec{x}}
+\newcommand{\x}{\Vec{x}}
+
+\newcommand{\LP}{\left(}
+\newcommand{\RP}{\right)}
+
+\newcommand{\DI}{\mbox{dist}}
+
+\newcommand{\PA}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand{\HI}{\mathcal{H}}
+\newcommand{\AL}{\mathcal{A}}
+
+\newcommand{\D}{\partial}
+
+\newcommand{\bs}{\textbackslash}
+
+\newcommand{\T}{\mathcal{T}}
+
+\numberwithin{equation}{section}
+\setcounter{section}{0}
+
+
+
+
+
+\def\Xint#1{\mathchoice
+{\XXint\displaystyle\textstyle{#1}}%
+{\XXint\textstyle\scriptstyle{#1}}%
+{\XXint\scriptstyle\scriptscriptstyle{#1}}%
+{\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+\!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$ }
+\vcenter{\hbox{$#2#3$ }}\kern-.6\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+
+
+
+\begin{document}
+
+
+\title{Quotient Topologies and Projective Space}
+\author{Mathew Calkins\\
+  \texttt{mathewpcalkins@gmail.com}}
+
+\date{\today}
+
+
+\maketitle
+\
+\\
+\
+
+\abstract{These notes aim to gently introduce the idea of a quotient topology. They are derived from the standard introductory materials by Munkres, Hatcher, and Naber, with exposition and motivation for some topics that I feel are typically rushed. All errors are my own.}\\
+\\
+\
+\section{Introduction}
+Given a set endowed with some nice algebraic structure (say, a group structure), it turns out to be helpful to generate new structures of the same type by reducing the underlying through some equivalence relation. For example, if we take the additive integers $\Z$ and impose an equivalence $x \sim x + n$ (for all $x \in \Z$ and some fixed $n \in \Z$) we get modular arithmetic (modulo $n$). If we start with the ring of real polynomials $\R[x]$ and declare that $x^2 + 1 \sim 0$, we get the ring of complex numbers. If either of these procedures are fuzzy or unfamiliar, don't worry. Just take on good faith that imposing equivalence relations on algebraic structures is a nice way to construct more algebraic structures.\\
+\\
+\
+A similar story holds in topology, where many useful spaces are most naturally constructed from $\R^n$ by imposing certain identifications. For example, if we take $\R^1$ and assert $x + 1 \sim x \ \forall x \in \R$, we are intuitively left with a one-dimensional space that loops back on itself. In other words, $\R / \sim$ is simply $S^1$. By the same intuition, if we reduce $\R^2$ by asserting that $(x,y) \sim (x+1,y)$ and $(x,y) \sim (x, y+1)$ we are left with the torus $T^2$.\\
+\\
+\
+In these notes we aim to make this intuition more precise. We would like to be able to start with a topological space $(X, \T_X)$, apply some equivalence relationship to reduce $X$ to $Y = X / \sim$, and let this endow $Y$ with some natural topology.
+
+\section{The quotient topology}
+First we rephrase the problem slightly, removing reference to equivalence relations: Let $X$ be some topological space, $Y$ some set not yet endowed with any structure a priori, and $f: X \to Y$ a surjective function. What topology should we put on $Y$? At a minimum we would like $f$ to be continuous, so we need \begin{equation*}
+U \mbox{ open in } Y \implies f^{-1}(U) \mbox{ open in } X.
+\end{equation*}
+Notice that this requirement limits how many sets can possibly be open in $Y$ (only those with open preimages are permissible), but doesn't give us any that must be open. If we were lazy, we could satisfy this require by giving $Y$ the so-called indiscrete topology wherein only $Y$ and $\emptyset$ are open in $Y$. Instead, the most useful choice is to make as many sets open in $Y$ as possible, i.e., every set with an open preimage will itself be open. Intuitively, we imagine that we choose to give $Y$ the richest topology that maps $f$ continuous. \\
+\\
+\
+\textbf{Definition of the quotient topology} Let $X$ be a topological space, $Y$ a set, and $f: X \to Y$ surjective. The \textit{quotient topology} on $Y$ is the topology in which \begin{equation*}
+U \mbox{ open in } Y \iff f^{-1}(U) \mbox{ open in } X.
+\end{equation*}
+We sometime call $f$ the \textit{quotient map}.
+
+\section{Some nice results}
+Historically, mathematicians were free to define the quotient topology however they wanted. The so-called `right definition' is the one that leads to the nicest behavior down the road. In this section we prove an very convenient theorem that hinges crucially on our choice of topologies for $Y$. But first, a very nice lemma:\\
+\\
+\
+\textbf{Very nice lemma} Consider some $X, Y$, and $f: X \to Y$ as constructed above, and suppose we have some additional topological space $Z$ and a function $g: Y  \to Z$. Then $g$ is continuous if and only if $g \circ f$ is continuous.\\
+\\
+\
+
+
+
+
+
+\end{document}
