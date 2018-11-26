@@ -1,0 +1,220 @@
+\documentclass[12 pt]{article}
+\usepackage{amsmath, amssymb, mathtools, slashed}
+
+% Commonly used sets of numbers
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+
+% Shortcuts for inner product spaces
+\newcommand{\KET}[1]{\left| #1 \right\rangle }
+\newcommand{\BRA}[1]{\left\langle #1 \right| }
+\newcommand{\IP}[2]{\left\langle #1 \left| #2 \right\rangle \right.}
+\newcommand{\Ip}[2]{\left\langle #1, #2 \right\rangle}
+\newcommand{\nm}[1]{\left\| #1 \right\|}
+
+% Shortcuts for the section of 3D rotations
+\newcommand{\lo}{\textbf{L}_1}
+\newcommand{\ltw}{\textbf{L}_2}
+\newcommand{\lt}{\textbf{L}_3}
+
+% Shortcuts for geometric vectors
+\newcommand{\U}{\textbf{u}}
+\newcommand{\V}{\textbf{v}}
+\newcommand{\W}{\textbf{w}}
+\newcommand{\B}[1]{\mathbf{#1}}
+\newcommand{\BA}[1]{\hat{\mathbf{#1}}}
+
+% Other shortcuts
+
+\newcommand{\G}{\gamma}
+\newcommand{\LA}{\mathcal{L}}
+\newcommand{\X}{\Vec{x}}
+\newcommand{\x}{\Vec{x}}
+
+\newcommand{\LP}{\left(}
+\newcommand{\RP}{\right)}
+
+\newcommand{\DI}{\mbox{dist}}
+
+\newcommand{\PA}[2]{\frac{\partial #1}{\partial #2}}
+
+\newcommand{\HI}{\mathcal{H}}
+\newcommand{\AL}{\mathcal{A}}
+
+\newcommand{\D}{\partial}
+
+\newcommand{\bs}{\textbackslash}
+
+\newcommand{\T}{\mathcal{T}}
+
+\numberwithin{equation}{section}
+\setcounter{section}{0}
+
+
+
+
+
+\def\Xint#1{\mathchoice
+{\XXint\displaystyle\textstyle{#1}}%
+{\XXint\textstyle\scriptstyle{#1}}%
+{\XXint\scriptstyle\scriptscriptstyle{#1}}%
+{\XXint\scriptscriptstyle\scriptscriptstyle{#1}}%
+\!\int}
+\def\XXint#1#2#3{{\setbox0=\hbox{$#1{#2#3}{\int}$ }
+\vcenter{\hbox{$#2#3$ }}\kern-.6\wd0}}
+\def\ddashint{\Xint=}
+\def\dashint{\Xint-}
+
+
+
+\begin{document}
+
+
+\title{Solutions to Exercises in \textit{Introduction to Manifolds} by Tu}
+\author{Mathew Calkins\\
+  \texttt{mathewpcalkins@gmail.com}}
+
+\date{\today}
+
+\maketitle
+
+
+\section{Smooth Functions on a Euclidean Space}
+
+\textbf{1.1 A function that is $C^2$ but not $C^3$}\\
+\\
+\
+\textit{Let $g: \R \to \R$ be the function in Example 1.2(iii). Show that the function $h(x) = \int_0 ^x g(t) dt$ is $C^2$ but not $C^3$ at $x = 0$.}\\
+\\
+\
+\textbf{Solution} In Example 1.2(iii) we defined \begin{equation*}
+f(x) = x^{1/3}
+\end{equation*}
+and \begin{equation*}
+g(x) = \int_0 ^x f(t) dt = \frac{3}{4} x^{4/3}
+\end{equation*}.
+Notice that \begin{equation*}
+h''(x) = g'(x) = f(x) = x^{1/3}.
+\end{equation*}
+Since the 2nd derivative of $h$ exists and is continuous at $x = 0$, $h$ is $C^2$ at $x = 0$. However, $h'''(x) = f'(x)$ is does not exist at $x = 0$ so $h$ is not $C^3$ at $x = 0$. QED\\
+\\
+\
+\textbf{1.2 A function very flat at $0$}\\
+\\
+\
+\textit{Let $f(x)$ be the function on $\R$ defined in example 1.3.}\\
+\\
+\
+\textit{(a) Show by induction that for $x > 0$ and $k \geq 0$, the $k$th derivative $f^{(k)}(x)$ is of the form $p_{2k}(1/x) e^{-1/x}$ for some polynomial $p_{2k}(y)$ of degree $2k$ in $y$.}\\
+\\
+\
+\textbf{Solution} For $x > 0$ (and we only concern ourselvers with that case for this problem) recall that $f(x) = e^{1/x}$. So our claim is true for $k = 0$ with $p_1(y) = 1$. By standard calculus we have \begin{equation*}
+f'(x) = - \frac{1}{x^2} e^{1/x}.
+\end{equation*}
+In other words, \begin{equation*}
+f^{(1)}(x) = p_{2 \cdot 1} (1/x) e^{1/x}
+\end{equation*}
+where \begin{equation*}
+p_2(y) = - y^2.
+\end{equation*}
+So our claim is also true for $k = 1$. So suppose that we have \begin{equation*}
+f^{(k)}(x) = p_{2k} (1/x) e^{1/x}
+\end{equation*}
+for some $k \geq 1$. Then the chain rule gives \begin{align*}
+f^{(k+1)}(x) & = \frac{d}{dx} \LP p_{2k} (1/x) e^{1/x} \RP \\
+\ & =  - \frac{p'_{2k}(1/x)}{x^2}  e^{1/x} - p_{2k} (1/x) \frac{e^{1/x}}{x^2} \\
+\ & = \LP - \frac{p_{2k}(1/x) + p'_{2k}(1/x)}{x^2} \RP e^{1/x}.
+\end{align*}
+Since the term inside the parentheses has order $2(k+1)$ when thought over as a polynomial in $1/x$, we see conclude our induction step and write \begin{equation*}
+f^{(k+1)}(x) = p_{2(k+1)} (1/x) e^{1/x}.
+\end{equation*}
+\\
+\\
+\
+\textit{(b) Prove that $f$ is $C^\infty$ on $\R$ and that $f^{(k)}(0) = 0$ for all $k \geq 0$.}\\
+\\
+\
+\textbf{Solution} Recall that, for each $k \geq 0$, we have (to be continued)
+\section{Tangent Vectors in $\R^n$ as Derivations}
+
+\section{The Exterior Algebra of Multicovectors}
+
+\section{Differential Forms on $\R^n$}
+
+\textbf{4.1 A $1$-form on $\R^3$}\\
+\\
+\
+\textit{Let $\omega$ be the 1-form $zdx - dz$ and let $X$ be the vector field $y \D / \D x + x \D / \D y$ on $\R^3$. Compute $\omega(X)$ and $d \omega$.}\\
+\\
+\
+\textbf{Solution}\\
+\\
+\
+From linearity and the identity \begin{equation*}
+dx^i \LP \PA{}{x^j} \RP = \delta^i _j
+\end{equation*}
+we have
+\begin{align*}
+\omega(X) & = (z dx - dz) \LP y \PA{}{x} + x \PA{}{y} \RP \\
+\ & = z y dx \LP \PA{}{x} \RP + \mbox{ terms that vanish by orthogonality} \\
+\ & = z y.
+\end{align*}
+Next we write \begin{equation*}
+\omega = \omega_i dx^i
+\end{equation*}
+where $\LP \omega_1, \omega_2, \omega_3\RP = (z, 0, -1)$. Then the general rule for differentating 1-forms states that \begin{align*}
+d \omega & = d \omega_i \wedge dx^i \\
+\ & = d \omega_1 \wedge dx^1 + d \omega_2 \wedge dx^2  + d \omega_3 \wedge dx^3 \\
+\ & = dz \wedge dx + 0 \wedge dy + 0 \wedge dz \\
+\ & = dz \wedge dx.
+\end{align*}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Manifolds}
+
+
+\textbf{The real line with two origins}\\
+\\
+\
+\textit{Let $A$ and $B$ be two points not on the real line $\R$. Consider the set $S = (R - \{0\}) \cup {A, B}$. For any two positive real number $c, d$, define} \begin{equation*}
+I_A(-c, d) = ] -c, 0[ \ \cup \ \{A\} \ \cup \ ]0, d[
+\end{equation*}
+\textit{and similarly for $I_B(-c, d)$ with $B$ instead of $A$. Define a topology on $S$ as follows: on $(\R - \{0\})$, use the subspace topology inherited from $\R$, with open intervals as a basis. A basis of neighborhoods at $A$ is the set} \begin{equation*}
+\{I_A (-c, d) \ | \ c, d > 0 \}
+\end{equation*}
+\textit{and likewise at $B$.}\\
+\\
+\
+\textit{(a) Prove that the map $h: I_A (-c, d) \to ]-c, 0[ \ \cup \ ]0, d[$ defined by} \begin{align*}
+h(x) & = 0 \ \ \ \mbox{ for } x \in ]-c, 0[ \ \cup \ ]0, d[, \\
+h(A) & = 0
+\end{align*}
+\textit{is a homeomorphism.}
+\
+
+\section{Smooth Maps on a Manifold}
+
+\section{Quotients}
+\end{document}
