@@ -259,11 +259,22 @@ B_r(a) & = \{ x \in X \ | \ d(x,a) < r \}, \\
 \textbf{Example 1.39 (rationals have Lebesgue measure zero)} Let $\{q_n \ | \ n \in \N\}$ be an enumeration of $\Q$ and fix $\epsilon > 0$. For each $n \in N$, consider the open interval \begin{equation*}
 I_n = \LP q_n - \frac{\epsilon}{2^n}, q_n + \frac{\epsilon}{2^n} \RP.
 \end{equation*}
-The union $\cup_{n \in \N} I_n$ is very interesting: it covers $\Q$, and yet the sum of the lengths of the intervals is $2\epsilon$, where $\epsilon$ can be made as small as we want. A subset of $\R$ has \textit{Lebesgue measure zero} if $\forall \epsilon > 0$, there exists a countable collection of open intervals whose unions contains the subset and such that the sum of the lengths of the intervals is less than $\epsilon$.
-
-
-
-
+The union $\cup_{n \in \N} I_n$ is very interesting: it covers $\Q$, and yet the sum of the lengths of the intervals is $2\epsilon$, where $\epsilon$ can be made as small as we want. A subset of $\R$ has \textit{Lebesgue measure zero} if $\forall \epsilon > 0$, there exists a countable collection of open intervals whose unions contains the subset and such that the sum of the lengths of the intervals is less than $\epsilon$.\\
+\\
+\
+\textbf{Proposition 1.41 (closed sets in terms of sequences)} A subset $F$ of a metric space is closed if and only if every convergent sequence of elements of $F$ has its limit in $F$. That is, if $x_n \to x$ and $x_n \in F \ \forall n \in \N$, then $x \in F$.\\
+\\
+\
+\textbf{Definition (closure)} In general topology, the closure $\overline{A}$ of a subset $A \subset X$ is the intersection of all closed sets containing $A$ (a sort of minimal closed superset of $A$). In a metric space, we can construct this set by appending to $A$ every point in $X$ that can be reached as a limit of points in $A$. \begin{equation*}
+\overline{A} = \{ x \in X \ | \mbox{ there exists a sequence } (a_n) \mbox{ in } X \mbox{ with } a_n \to x \}.
+\end{equation*}
+\textbf{Definition 1.43 (dense subset)} A subset $A$ of a metric space $X$ is \textit{dense} in $X$ if $\overline{A} = X$.\\
+\\
+\
+\textbf{Definition 1.44} A metric space is \textit{separable} if it contains a countable dense subset.\\
+\\
+\
+(more definitions to come)
 
 
 
@@ -277,6 +288,30 @@ The union $\cup_{n \in \N} I_n$ is very interesting: it covers $\Q$, and yet the
 
 
 \section{The completion of a metric space}
+In this section we discuss how to produce a complete metric space from an incomplete one.\\
+\\
+\
+\textbf{Definition 1.49} A map $\iota: X \to Y$ is called an \textit{isometry} or an \textit{isometric embedding} of $X$ into $Y$ if it satisfies \begin{equation*}
+d_Y(\iota(x_1), \iota(x_2)) = d_X(x_1, x_2)
+\end{equation*}
+for all $x_1, x_2 \in X$. If $\iota: X \to Y$ is onto (and thus bijective) we call it a \textit{metric space isomorphism} or more briefly an \textit{isomorphism} if the metric structure is clear from context. As usual, if such an $\iota$ exists we say that $X$ and $Y$ are \textit{isomorphic}.\\
+\\
+\
+Note that an isometry is automatically continuous (simply assign $\delta = \epsilon$ in the definition of continuity).\\
+\\
+\
+\textbf{Example} The map $\iota: \C \to \R^2$ with $x+iy \mapsto (x,y)$ is a metric spac isomorphism.\\
+\\
+\
+\textbf{Definition 1.51} A metric space $(\tilde{X}, \tilde{d})$ is called the \textit{completion} of the metric space $(X, d)$ if the following conditions hold: \begin{itemize}
+\item There exists an isometric embedding $\iota: X \to \tilde{X}$.
+\item The image $\iota(X) \subset \tilde{X}$ is dense in $X$.
+\item $(\tilde{X}, \tilde{d})$ is complete.
+\end{itemize}
+\textbf{Theorem 1.52} Every metric space has a completion. Furthermore, the completion is unique up to isomorphism.\\
+\\
+\
+\textbf{Proof of Theorem 1.52} This proof is looong. Read the proof in the book, I won't write it here.
 
 
 
@@ -353,7 +388,7 @@ s_n(x) & = \frac{1- x^{k+1} }{1 - x} \\
 So it finally suffices to show that $\lim_{n \to \infty} x^n = 0$ for $|x| < 1$. For $\epsilon > 0$, we need to find $N \in \N$ such that $n \geq N$ implies $|x^n| < \epsilon$. To do so, simply set $N > \log_x (\epsilon)$. QED\\
 \\
 \
-\textbf{Exercise 1.3} If $x, y, z$ are points in a metric space $(X, d)$, show that \begin{equation*}
+\textbf{Exercise 1.3 (Nov 25)} If $x, y, z$ are points in a metric space $(X, d)$, show that \begin{equation*}
 d(x,y) \geq |d(x,z) - d(y,z)|
 \end{equation*}
 \textbf{Solution} The triangle inequality tells us that \begin{equation*}
@@ -369,6 +404,142 @@ d(x,y) & \leq - ((d,z) - d(y,z)).
 Equivalently, \begin{equation*}
 d(x,y) \leq |d(x,z) - d(y,z)|.
 \end{equation*}
-QED
+QED\\
+\\
+\textbf{Exercise 1.4 (Nov 26)} Suppose that $(X, d_X)$ and $(Y, d_Y)$ are metric spaces. Prove that the Cartesian product $Z = X \times Y$ is a metric space with metric $d: Z \times Z \to \R$ defined by \begin{equation*}
+d(z_1, z_2) = d_X(x_1, x_2) + d_Y(y_1, y_2)
+\end{equation*}
+where $z_i = (x_i, y_i)$.\\
+\\
+\
+\textbf{Solution} Without any actual calculation we have \begin{equation*}
+d(z_1, z_2) = d(z_2, d_1) \mbox{ (symmetry)}.
+\end{equation*}
+Since $d_X$ and $d_Y$ only give nonnegative values, so does $d$. \begin{equation*}
+d(z_1, z_2) \geq 0.
+\end{equation*}
+And for the same reason, $d$ vanishes if and only if $d_X$ and $d_Y$ do \begin{equation*}
+d(z_1, z_2) = 0 \mbox{ iff } z_1 = z_2.
+\end{equation*}
+As for the triangle inequality, we already know that \begin{align*}
+d_X(x_1, x_3) \leq d_X(x_1, x_2) + d_X(x_2, x_3), \\
+d_Y(y_1, y_3) \leq d_Y(y_1, y_2) + d_Y(y_2, y_3).
+\end{align*}
+Adding these two equations gives \begin{equation*}
+d(z_1, z_3) \leq d(z_1, z_2) + d(z_2, z_3).
+\end{equation*}
+QED\\
+\\
+\
+\textbf{Exercise 1.8 (Nov 27)} Let $(x_n)$ be a bounded sequence of real numbers. \\
+\\
+\
+\textbf{Part (a)} Prove that for every $\epsilon > 0$ and every $N \in \N$ there are $n_1, n_2 \geq N$, such that \begin{equation*}
+\lim \sup x_n \leq x_{n_1} + \epsilon, \ x_{n_2} - \epsilon \leq \lim \inf x_n .
+\end{equation*}
+\textbf{Solution to (a)} Notice that we only need to prove the statement about $\lim \sup$, since the proof for $\lim \inf$ is logically identical. We introduce the nicer notation \begin{equation*}
+\mbox{sup} _n = \sup \{ x_k \ | \ k \geq n \}
+\end{equation*}
+so that \begin{equation*}
+\lim \sup x_n = \lim_{n \to \infty} \mbox{sup}_n
+\end{equation*}
+and similarly for inf$_n$ and $\lim \inf$. Now fix $\epsilon > 0$ and $N \in \N$. We want to prove that there exists $n_1 \geq N$ such that \begin{equation*}
+\lim \sup x_n \leq {n_1} + \epsilon.
+\end{equation*}
+Suppose that were false. Then we would have \begin{equation*}
+\lim \sup x_n - \epsilon > x_{n_1}
+\end{equation*}
+for all $n_1 \geq N$. In other words, all terms past the $N$th term would be bounded above by $\lim \sup x_n - \epsilon$. But then we would have sup$_n$ and we would have \begin{equation*}
+\mbox{sup}_{n_1} \leq  \lim \sup x_n - \epsilon
+\end{equation*}
+for all $n_1 \geq N$. This contraditions the fact that sup$_{n_1} \to \lim \sup x_n$ as $n_1 \to \infty$, which must be true by definition, so our supposition is false. QED\\
+\\
+\
+\textbf{Part (b)} Prove that for every $\epsilon > 0$ there exists $N \in \N$ such that \begin{align*}
+x_m \leq \lim \sup x_n + \epsilon, \\
+x_m \geq \lim \inf x_n - \epsilon
+\end{align*}
+for all $m \geq N$.\\
+\\
+\
+\textbf{Solution to (b)} Again by symmetry we only need to prove the first statement. So fix $\epsilon > 0$. From the definition \begin{equation*}
+\lim \sup x_n = \lim_{m \to \infty} \mbox{sup}_m = \lim _{m \to \infty} \sup \{ x_k \ | \ k \geq m \}
+\end{equation*}
+and the definition of a limit, there must exist $N \in \N$ such that \begin{equation*}
+m \geq N \implies |\mbox{sup}_m - \lim \sup x_n | < \epsilon.
+\end{equation*}
+Since $(\mbox{sup}_m)$ is monotic decreasing, the absolute value bars are superfluous: \begin{equation*}
+m \geq N \implies \mbox{sup}_m - \lim \sup x_n < \epsilon.
+\end{equation*}
+And by definition we have \begin{equation*}
+x_m \leq \mbox{sup}_m.
+\end{equation*}
+So we conclude that, for all $m \geq N$, \begin{equation*}
+x_m - \lim \sup x_n < \epsilon.
+\end{equation*}
+QED\\
+\\
+\
+\textbf{Part (c)} Prove that $(x_n)$ converges if and only if \begin{equation*}
+\lim \inf x_n = \lim \sup x_n
+\end{equation*}
+\textbf{Solution to (c)} One direction of this equivalence amounts to the sandwich thereom: Assume $\lim \inf x_n = \lim \sup x_n$ and call the common limit $L \in \R$. Observe the convenient bounding \begin{equation*}
+\mbox{inf}_n \leq x_n \leq \mbox{sup}_n \mbox{ for all } n \in N.
+\end{equation*}
+Then for all $\epsilon > 0$, there exists $N \in \N$ such that \begin{equation*}
+n \geq N \implies L - \epsilon < \mbox{inf}_n \leq x_n \leq \mbox{sup}_n \leq L + \epsilon
+\end{equation*}
+and we have \begin{equation*}
+\lim _{n \to \infty} x_n = L.
+\end{equation*}
+The opposite direction follows immediately from parts (a) and (b). QED\\
+\\
+\
+\textbf{Exercise 1.11 (Nov 28)} If $(x_n), (a_n), (b_n)$ are sequences of real numbers such that \begin{equation*}
+\lim_{n \to \infty} x_n = x
+\end{equation*}
+and such that \begin{equation*}
+a_n \leq x_n \leq b_n \ \forall n \in \N
+\end{equation*}
+prove that \begin{equation*}
+\lim \sup a_n \leq x \leq \lim \inf b_n.
+\end{equation*}
+\textbf{Solution} First, observe that $(x_n)$ converges and is thus bounded, so $(a_n)$ is bounded above and $(b_n)$ is bounded below. This still allows for the possibility that $\lim \sup a_n = - \infty$ or $\lim \inf b_n = \infty$, but in those cases our claimed inequalities are trivially satisfied. So without loss of generality, we assume that $\lim \sup a_n \in \R$ and $\lim \inf b_n \in \R$, or equivalently that $(a_n)$ is also bounded below and $(b_n)$ above.\\
+\\
+\
+From the inequality \begin{equation*}
+a_n \leq x_n \ \forall n \in \N
+\end{equation*}
+we see that \begin{equation*}
+\sup \{a_k \ | \ k \geq n \} \leq \sup \{x_k \ | \ k \geq n \}
+\end{equation*}
+which holds in the limit $n \to \infty$. \begin{equation*}
+\lim \sup a_n \leq \lim \sup x_n.
+\end{equation*}
+But since $(x_n)$ is a convergent series we know its $\lim \sup$ agrees with its limit: \begin{equation*}
+\lim \sup x_n = x.
+\end{equation*}
+So we conclude \begin{equation*}
+\lim \sup a_n \leq x.
+\end{equation*}
+By identical reasoning, we have \begin{equation*}
+x \leq \lim \inf b_n.
+\end{equation*}
+QED\\
+\\
+\
+\textbf{Exercise 1.12 (Nov 28)} Let $(X, d_X)$, $(Y, d_Y)$, and $(Z, d_Z)$ be metric spaces and let $f: X \to Y$ and $g: Y \to Z$ be continuous functions. Show that the composition \begin{equation*}
+h = g \circ f: X \to Z
+\end{equation*}
+is also continuous.\\
+\\
+\
+\textbf{Solution} This problem is messy if we use the $\epsilon-\delta$ criterion for continuity but easy if we use the topological criterion: a function is continuous iff its preimages of open sets are open. So let $U \subset Z$ be open and let $V \subset X$ be its preimage under $h$. We wish to show that $V$ is open. But we have \begin{align*}
+V & = h^{-1}(U) \\
+\ & = (g \circ f)^{-1}(U) \\
+\ & = f^{-1} (g^{-1}(U))
+\end{align*}
+$g$ is continuous, so $g^{-1}(U) \subset Y$ is open in $Y$. And $f$ is continuous, so $f^{-1} (g^{-1}(U)) \subset X$ is open in $X$. QED
+
 
 \end{document}
