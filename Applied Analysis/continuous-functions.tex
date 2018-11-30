@@ -81,6 +81,8 @@
 
 \maketitle
 
+\tableofcontents
+
 
 \section{Convergence of functions}
 
@@ -94,13 +96,43 @@ By considering the sequence of maps $f_n: [0,1] \to \R$ given by $x \mapsto x^n$
 For continuous functions $f: X \to \R$, a natural norm on spaces of continuous functions is the \textit{uniform} or \text{sup} norm \begin{equation*}
 \nm{f} = \sup _{x \in X} |f(x)|.
 \end{equation*}
-Imagining the behavior of the $L^p$ norm for large $p$, this is sometimes written $\nm{\cdot}_\infty$.
-
+Imagining the behavior of the $L^p$ norm for large $p$, this is sometimes written $\nm{\cdot}_\infty$.\\
+\\
+\
+\textbf{Definition 2.2} A sequence of bounded functions $f_n: X \to \R$ \textit{converges uniformly} to a function $f$ if \begin{equation*}
+\lim_{n \to \infty} \nm{f_n - f} = 0.
+\end{equation*}
+\textbf{Theorem 2.3} Let $(f_n)$ be a sequence of bounded, continuous, real-valued functions on a metric space $(X,d)$. If $f_n \to f$ uniformly, then $f$ is continuous.\\
+\\
+\
+\textbf{Proof} To prove this claim we don't need the full machinery of a sequence of function converging uniformly to $f$. We work with a weaker premise which better captures the essence of why our theorem is true: the difference $\nm{f - g}$ can be made arbitrarily small by appropriate choice of continuous $g: X \to \R$. Morally, our premise is that we have a function $f: X \to \R$ which can be approximated arbitrarily well (if we measure approximations using the uniform norm) by continuous functions.\\
+\\
+\
+Morals aside, we return to our claim that $f: X \to \R$ is continous. Fixing $\epsilon > 0$, we want to find $\delta > 0$ such that \begin{equation*}
+d(x,y) < \delta \implies |f(x) - f(y)| < \epsilon.
+\end{equation*}
+From the premise, there must exist continuous $g: X \to \R$ such that \begin{equation*}
+\nm{f - g} = \sup_{x \in X} |f(x) - g(x)| < \epsilon / 3.
+\end{equation*}
+Pick such a function $g$. From the continuity of $g$, there exists $\delta > 0$ such that \begin{equation*}
+d(x,y) < \delta \implies |g(x) - g(y)| < \epsilon / 3.
+\end{equation*}
+In that case, when $d(x,y) < \delta$ we have \begin{align*}
+|f(x) - f(y)| & = |(f(x) - g(x)) + (g(x) - g(y)) + (g(y) - f(y))| \\
+\ & \leq |f(x) - g(x)| + |g(x) - g(y)| + |g(y) - f(y)| \\ 
+ & < \epsilon / 3 + \epsilon / 3 + \epsilon / 3 \\
+\ & = \epsilon.
+\end{align*}
+QED
 
 
 
 
 \section{Spaces of continuous functions}
+Given a metric space $(X, d)$, we denote by $C(X)$ the space of continuous functions $f: X \to \R$. This is a real linear space under the obvious operations.\\
+\\
+\
+\textbf{Theorem 2.4} Let $(K,d)$ be a compact metric space. Then $C(K)$ is complete.
 
 
 
@@ -132,5 +164,40 @@ Imagining the behavior of the $L^p$ norm for large $p$, this is sometimes writte
 
 \section{Ordinary differential equations}
 
+
+
+
+
+
+\section{Exercises}
+
+\textbf{Exercise 2.2 (November 29)} Let $f_n \in C([a,b])$ be a sequence of functions converging uniformly to a function $f$. Show that \begin{equation*}
+\lim_{n \to \infty} \int_a ^b f_n(x)dx = \int_a ^b f(x)dx.
+\end{equation*}
+Give a counterexample to show that the pointwise convergence of continuous functions $f_n$ to a continuous function $f$ does not imply the convergence of the corresponding integrals.\\
+\\
+\
+\textbf{Solution} First we recall the generic bound \begin{equation*}
+\left| \int_a^b g(x) dx \right| \leq \int_a ^b |g(x)|dx
+\end{equation*}
+for $g \in C([a,b])$ (i.e., for continous $g: [a,b] \to \R$). To show that \begin{equation*}
+\lim_{n \to \infty} \int_a ^b f_n(x)dx = \int_a ^b f(x)dx.
+\end{equation*}
+we equivalently show that \begin{equation*}
+\lim_{n \to \infty} \left| \int_a ^b f_n(x)dx - \int_a ^b f(x)dx \right| = 0.
+\end{equation*}
+To do so, observe the sequence of upper bounds \begin{align*}
+\lim_{n \to \infty} \left| \int_a ^b f_n(x)dx - \int_a ^b f(x)dx \right| & = \lim_{n \to \infty} \left| \int_a ^b \LP f_n(x) - f(x)\RP dx\right| \\
+\ & \leq \lim_{n \to \infty} \int_a ^b \left| f_n(x) - f(x) \right|dx \\
+\ & \leq \lim_{n \to \infty} \LP (b - a) \cdot \sup_{x \in [a,b]} |f_n(x) - f(x)| \RP \\
+\ & = (b-a) \cdot  \lim_{n \to \infty} \LP \sup_{x \in [a,b]} |f_n(x) - f(x)| \RP 
+\end{align*}
+So it suffices to show that \begin{equation*}
+ \lim_{n \to \infty} \LP \sup_{x \in [a,b]} |f_n(x) - f(x)| \RP.
+\end{equation*}
+But that is precisely the definition of the statement ``$f_n \to f$ uniformly" so we are done. QED\\
+\\
+\
+(still thinking about the counterexample for the other claim in the problem statement)
 
 \end{document}
