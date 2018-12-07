@@ -333,8 +333,23 @@ Note that an isometry is automatically continuous (simply assign $\delta = \epsi
 \section{Compactness}
 
 
-
-
+\textbf{Definition 1.54} A subset $K$ of a metric space $X$ is \textit{sequentially compact} if every sequence in $K$ has a convergent subsequence whose limit belongs to $K$.\\
+\\
+\
+\textbf{Theorem 1.56 (Heine-Borel)} A subset of $\R^n$ is sequentially compact iff it is closed and bounded.\\
+\\
+\
+\textbf{Proof of 1.56} The proof in one direction is easy: suppose some subset $X \subset \R^n$ is closed and bounded and let $(x_n)$ be a sequence in $X$. By Bolzano-Weierstrass (proved next), $(x_n)$ has some convergence subsequence $(y_n)$ (call the limit $y \in \R^n$). Since $X$ is closed, we have $y \in X$.
+\textbf{Theorem 1.57 (Bolzano Weierstrass)} Every bounded sequence in $\R^n$ has a convergent subsequence.\\
+\\
+\
+\textbf{Proof of 1.57} Recall the telescoping technique used to prove that every sequence contained in $[a,b] \subset \R$ contains a convergent subsequence. This technique generalizes naturally to $[a_1, b_1] \times [a_2, b_2] \subset \R^2$ if we use quadrants rather than halves, and likewise to higher dimensions. So given any bounded sequence in $\R^n$, pick any bounded hyper-rectangle and apply this telescoping technique to furnish a convergent subsequence. QED\\
+\\
+\
+\textbf{Definition ($\epsilon$-nets)} Let $X$ be a metric space with subspace $A$. Let $\epsilon > 0$. A collect of subsets $\{x_\alpha \}$ of $X$ is called an \textit{$\epsilon$-net} of $A$ if the family of open balls $\{x_\alpha\}$ covers $A$. \\
+\\
+\
+\textbf{Definition 1.58} A subset of a metric space is \textit{totally bounded} if it has a finite $\epsilon$-net for every $\epsilon>0$.
 
 
 
